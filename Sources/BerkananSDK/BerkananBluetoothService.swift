@@ -70,21 +70,21 @@ public class BerkananBluetoothService: NSObject {
   /// Combine version of the `berkananBluetoothService(_:didDiscover:)` delegate method.
   ///
   /// Note: Events are not delivered on the main thread.
-  @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+  @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 8.0, *)
   lazy public private(set) var discoverServiceSubject =
     PassthroughSubject<BerkananBluetoothService, Never>()
   
   /// Convenience publisher to keep track of the number of services in range.
   ///
   /// Note: Events are not delivered on the main thread.
-  @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+  @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 8.0, *)
   lazy public private(set) var numberOfServicesInRangeSubject =
     PassthroughSubject<Int, Never>()
   
   /// Combine version of the `berkananBluetoothService(_:didReceive:)` delegate method.
   ///
   /// Note: Events are not delivered on the main thread.
-  @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+  @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 8.0, *)
   lazy public private(set) var receiveMessageSubject =
     PassthroughSubject<Message, Never>()
   
@@ -108,7 +108,7 @@ public class BerkananBluetoothService: NSObject {
   public internal(set) var servicesInRange = Set<BerkananBluetoothService>() {
     didSet {
       #if canImport(Combine)
-      if #available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *) {
+      if #available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 8.0, *) {
         self.numberOfServicesInRangeSubject.send(servicesInRange.count)
       }
       #endif
@@ -237,7 +237,7 @@ public enum BluetoothAuthorization: Int {
     self.init(rawValue: cbPeripheralManagerAuthorizationStatus.rawValue)
   }
   
-  @available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
+  @available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 8.0, *)
   public init?(cbManagerAuthorization: CBManagerAuthorization) {
     self.init(rawValue: cbManagerAuthorization.rawValue)
   }
