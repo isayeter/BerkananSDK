@@ -1153,7 +1153,7 @@ extension BluetoothController: CBPeripheralDelegate {
       self.servicesOfPeripherals[peripheral] = services
       services.forEach { $0.rssi = self.rssiOfPeripherals[peripheral] ?? nil }
       #if canImport(Combine)
-      if #available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *) {
+      if #available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 8.0, *) {
         self.service?.discoverServiceSubject.send(remoteService)
       }
       #endif
@@ -1228,13 +1228,13 @@ extension BluetoothController: CBPeripheralManagerDelegate {
   }
   
   func _peripheralManagerDidUpdateState(_ peripheral: CBPeripheralManager) {
-    if #available(OSX 10.15, macCatalyst 13.1, iOS 13.1, tvOS 13.0, watchOS 6.0, *) {
+    if #available(OSX 10.15, macCatalyst 13.1, iOS 13.1, tvOS 13.0, watchOS 8.0, *) {
       self.service?.bluetoothAuthorization =
         BluetoothAuthorization(
           cbManagerAuthorization: CBManager.authorization
         ) ?? .notDetermined
     }
-    else if #available(OSX 10.15, macCatalyst 13.0, iOS 13.0, tvOS 13.0, watchOS 6.0, *) {
+    else if #available(OSX 10.15, macCatalyst 13.0, iOS 13.0, tvOS 13.0, watchOS 8.0, *) {
       self.service?.bluetoothAuthorization =
         BluetoothAuthorization(
           cbManagerAuthorization: peripheral.authorization
@@ -1419,7 +1419,7 @@ extension BluetoothController: CBPeripheralManagerDelegate {
       if !self.seenMessageUUIDs.contains(messageUUID) {
         self.addToSeenMessageUUIDsIfNeeded(uuid: messageUUID)
         #if canImport(Combine)
-        if #available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *) {
+        if #available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 8.0, *) {
           self.service?.receiveMessageSubject.send($0)
         }
         #endif
